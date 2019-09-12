@@ -1,0 +1,104 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+		<title>Untitled Document</title>
+		<script src="https://www.lactame.com/lib/ml/3.3.0/ml.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/1.33.1/plotly.min.js"></script>
+		<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	</head>
+
+	<body>
+
+	  <div id="myDiv"></div>
+	  
+		<script>
+
+const x = [1, 2, 3, 4, 45 , 60, 70, 80, 90, 500,1002,1500,2000,2500, 3000,3500,4000];
+const y = [11, 11.41, 11.73, 12,16.71, 17.75, 18.37,18.94,19.49, 32.36, 41.65,48.73,54.72,60,64.77,69.16,73.25];
+
+var rx=[];
+var ry=[];
+
+var px=[];
+var py=[];
+
+var tx=[];
+var ty=[];
+
+const Lregression = new ML.SimpleLinearRegression (x, y);
+
+const Pregression = new ML.PolynomialRegression(x, y, 2);
+
+var reg = new ML.DecisionTreeRegression
+reg.train(x, y);
+
+console.log(Lregression.predict(390));
+console.log(Lregression.toString(3)); 
+
+for(var i =0 ;i < 4000; i++)
+{
+	rx.push(i);
+	ry.push(Lregression.predict(i));
+}
+
+for(var i =0 ;i < 4000; i++)
+{
+	px.push(i);
+	py.push(Pregression.predict(i));
+}
+
+for(var i =0 ;i < 4000; i++)
+{
+	tx.push(i);
+	ty.push(reg.predict([i])[0]);
+}
+
+console.log(reg.predict([8,13,23]));
+
+
+var trace1 = {
+  x: x,
+  y: y,
+  mode: 'markers',
+  type: 'scatter',
+  name: 'Deney Seti',
+  marker: { size: 9 }
+};
+
+var trace2 = {
+  x: rx,
+  y: ry,
+  mode: 'lines',
+  type: 'scatter',
+  name: 'hip. Fonk. : ' + Lregression.toString(3),
+  marker: { size: 9 }
+};
+
+var trace3 = {
+  x: px,
+  y: py,
+  mode: 'lines',
+  type: 'scatter',
+  name: 'hip. Fonk. : ' + Pregression.toString(3),
+  marker: { size: 9 }
+};
+
+var trace4 = {
+  x: tx,
+  y: ty,
+  mode: 'lines',
+  type: 'scatter',
+  name: 'Decision Tree Regression',
+  marker: { size: 9 }
+};
+
+
+var data = [ trace1, trace2, trace3, trace4 ];
+
+
+Plotly.newPlot('myDiv', data);
+		
+		</script>
+
+	</body>
+</html>

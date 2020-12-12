@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+	 <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<script src="https://www.lactame.com/lib/ml/3.3.0/ml.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/1.33.1/plotly.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+</head>
+<body>
+
+
+<div style=" padding: 35px;" class="section">
+
+<div class="container">
+
+  <div class="row">
+    <div class="col-sm" >
+
+		<div class="card">
+			<div class="card-header">
+				Featured
+			</div>
+			<div class="card-body">
+				<div id="myDiv1"></div>
+			</div>
+		</div>		
+	
+	
+	</div>
+
+  </div>
+  
+ <div class="row">
+
+    <div class="col-sm" >
+	
+fdsfasdfasdfsdfsdf	
+	
+	</div>
+
+</div>
+
+
+</div>
+
+
+</div>
+
+ 
+ <script>
+ 
+
+
+var BPFDataSet =[
+
+  [7.62, 10.06, 24.28], // Armstrong Whitworth Scimitar - UK
+  [6.19, 9.14, 21.1], //Boeing P-12 - US
+  [7.67, 10.3, 28.5], // Bristol Bulldog - UK
+  [7.42, 9.60, 24.3], //Curtiss Hawk III - US
+  [5.99, 9.07, 24.52], // Gloster Gamecock - UK
+  [8.36, 9.83, 30.0], // Gloster Gladiator Mk I - UK
+  [8.15, 9.14, 23.4], // Hawker Fury Mk II - UK
+  [7.47, 10.52, 28.8] // Grumman Goblin -US
+];
+
+var MPFDataSet =[
+
+  [9.2, 10.4, 19.8], // Bell P-39 Airacobra -US
+  [7.18, 8.50, 13.9], // Boeing P-26 Peashooter -US
+  [10.26, 12.50, 28.1], // Hawker Tempest -UK
+  [9.83, 11.28, 21.83], // North American P-51 Mustang - US
+  [9.12, 11.23, 22.48], // Supermarine Spitfire - UK
+  [11.00, 12.42, 27.87], // Republic P-47 Thunderbolt - US
+  [9.06, 12, 22.44], //Mitsubishi A6M Zero - JP
+  [8.95, 9.925, 16.05] //Messerschmitt Bf 109 - GER
+
+];
+
+var MBDataSet =[
+
+  [13.46, 17.63, 46.7], //Bristol Beaufort - UK 
+  [17.8, 21.65, 61.1], //Martin B-26 Marauder - US
+  [15, 20, 55], //Yokosuka P1Y - JP
+  [16.32, 21.09, 62.1],//Handley Page HP.52 Hampden -UK
+  [17,19,57], //Dornier Do 217 - GER
+  [14.948,22,56] // Junkers Ju 188 -GER
+];
+
+var dataset = BPFDataSet.concat(MPFDataSet,MBDataSet)
+
+
+function unpack(rows, key) {
+	return rows.map(function(row)
+	{ return row[key]; });}
+	
+
+
+var trace1 = {
+  x: unpack(BPFDataSet,2),
+  y: unpack(BPFDataSet,1),
+  z: unpack(BPFDataSet,0),
+  mode: "markers",
+  name: "BiPlain Fighter",
+  marker: {
+    size: 12,
+   // line: {
+   //   color: "rgba(217, 217, 217, 0.14)",
+   //   width: 0.5
+   // },
+    opacity: 0.8
+  },
+  type: "scatter3d"
+};
+
+
+var trace2 = {
+  x: unpack(MPFDataSet,2),
+  y: unpack(MPFDataSet,1),
+  z: unpack(MPFDataSet,0),
+  name: "MonoPlain Fighter",
+  mode: "markers",
+  marker: {
+    size: 12,
+   // line: {
+   //   color: "rgba(217, 217, 217, 0.14)",
+   //   width: 0.5
+   // },
+    opacity: 0.8
+  },
+  type: "scatter3d"
+};
+
+var trace3 = {
+  x: unpack(MBDataSet,2),
+  y: unpack(MBDataSet,1),
+  z: unpack(MBDataSet,0),
+  name: "Midle Bomber",
+  mode: "markers",
+  marker: {
+    size: 12,
+   // line: {
+   //   color: "rgba(217, 217, 217, 0.14)",
+   //   width: 0.5
+   // },
+    opacity: 0.8
+  },
+  type: "scatter3d"
+};
+
+var data1 = [trace1,trace2,trace3];
+
+
+var layout = {
+  title: 'Plot Title',
+  height:600,
+  width:700,
+  camera:"eye"
+};
+
+
+Plotly.plot('myDiv1',data1,layout);
+
+</script>
+ 
+
+</body>
+</html>
